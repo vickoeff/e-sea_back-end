@@ -26,10 +26,17 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
+## requirement 
+[] postgres
+[] databaseName check on .env.example
+
 ## Installation
 
 ```bash
 $ npm install
+$ npm install prisma --save-dev
+$ npx prisma generate
+$ npx prisma migarate dev
 ```
 
 ## Running the app
