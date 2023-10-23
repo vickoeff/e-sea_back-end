@@ -26,9 +26,10 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-## requirement 
+## Requirement 
 - [x] postgres
-- [x] databaseName check on .env.example
+- [x] databasename check on .env.example
+- [x] create file .env 
 
 ## Installation
 
