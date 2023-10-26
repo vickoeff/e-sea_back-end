@@ -36,7 +36,6 @@ export class CompanyProfileService {
       data: {
         title: updateCompanyProfileDto.title,
         body: updateCompanyProfileDto.body,
-        updated_at: Date(),
       },
     });
   }
