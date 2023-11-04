@@ -7,13 +7,12 @@ import { PrismaService } from 'src/repository/prisma.service';
 export class CompanyProfileService {
   constructor(private prisma: PrismaService) {}
   async create(createCompanyProfileDto: CreateCompanyProfileDto) {
-    await this.prisma.section.create({
+    return await this.prisma.section.create({
       data: {
         title: createCompanyProfileDto.title,
         body: createCompanyProfileDto.body,
       },
     });
-    return { status: 'succes', code: 200 };
   }
 
   async findAll() {

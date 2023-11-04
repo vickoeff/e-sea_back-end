@@ -6,6 +6,8 @@ import {
   Patch,
   Param,
   Delete,
+  HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 import { CompanyProfileService } from './company-profile.service';
 import { CreateCompanyProfileDto } from './dto/create-company-profile.dto';
@@ -16,35 +18,52 @@ export class CompanyProfileController {
   constructor(private readonly companyProfileService: CompanyProfileService) {}
 
   @Post()
-  create(@Body() createCompanyProfileDto: CreateCompanyProfileDto) {
-    return this.companyProfileService.create(createCompanyProfileDto);
+  async create(@Body() createCompanyProfileDto: CreateCompanyProfileDto) {
+    const isSucces = await this.companyProfileService.create(
+      createCompanyProfileDto,
+    );
+    if (isSucces) return new HttpException('Success', HttpStatus.CREATED);
+    throw new HttpException('Error', HttpStatus.INTERNAL_SERVER_ERROR);
   }
 
   @Get()
-  findAll() {
-    return this.companyProfileService.findAll();
+  async findAll() {
+    return await this.companyProfileService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  async findOne(@Param('id') id: string) {
+    const isExist = await this.companyProfileService.findOne(+id);
+    if (!isExist) throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
     return this.companyProfileService.findOne(+id);
   }
 
-  @Get(':title')
-  findByTitle(@Param('title') title: string) {
-    return this.companyProfileService.findByTitle(title);
+  @Get('/title/:title')
+  async findByTitle(@Param('title') title: string) {
+    const isExist = await this.companyProfileService.findByTitle(title);
+    if (!isExist) throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
+    return await this.companyProfileService.findByTitle(title);
   }
 
   @Patch(':id')
-  update(
+  async update(
     @Param('id') id: string,
     @Body() updateCompanyProfileDto: UpdateCompanyProfileDto,
   ) {
-    return this.companyProfileService.update(+id, updateCompanyProfileDto);
+    const isExist = await this.companyProfileService.findOne(+id);
+    if (!isExist) throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
+    return await this.companyProfileService.update(
+      +id,
+      updateCompanyProfileDto,
+    );
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.companyProfileService.remove(+id);
+  async remove(@Param('id') id: string) {
+    const isExist = await this.companyProfileService.findOne(+id);
+    if (!isExist) throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
+    const isSucces = this.companyProfileService.remove(+id);
+    if (isSucces) return new HttpException('Deleted', HttpStatus.GONE);
+    throw new HttpException('Error', HttpStatus.INTERNAL_SERVER_ERROR);
   }
 }

@@ -1,8 +1,5 @@
-import { PartialType } from '@nestjs/mapped-types';
 import { CreateCompanyProfileDto } from './create-company-profile.dto';
 
-export class UpdateCompanyProfileDto extends PartialType(
-  CreateCompanyProfileDto,
-) {
+export class UpdateCompanyProfileDto extends CreateCompanyProfileDto {
   updated_at: Date;
 }
