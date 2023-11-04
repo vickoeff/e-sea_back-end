@@ -30,6 +30,11 @@ export class CompanyProfileController {
     return this.companyProfileService.findOne(+id);
   }
 
+  @Get(':title')
+  findByTitle(@Param('title') title: string) {
+    return this.companyProfileService.findByTitle(title);
+  }
+
   @Patch(':id')
   update(
     @Param('id') id: string,

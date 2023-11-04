@@ -21,13 +21,19 @@ export class CompanyProfileService {
   }
 
   async findOne(id: number) {
-    const data = await this.prisma.section.findUnique({
+    return await this.prisma.section.findUnique({
       where: {
         id,
       },
     });
-    return `# ${data.title} \n${data.body}
-    `;
+  }
+
+  async findByTitle(title: string) {
+    return await this.prisma.section.findFirst({
+      where: {
+        title,
+      },
+    });
   }
 
   async update(id: number, updateCompanyProfileDto: UpdateCompanyProfileDto) {
