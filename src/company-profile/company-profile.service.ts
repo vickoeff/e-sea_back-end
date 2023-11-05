@@ -54,4 +54,18 @@ export class CompanyProfileService {
       },
     });
   }
+  async uploadImage(image: Express.Multer.File) {
+    return await this.prisma.image.create({
+      data: {
+        ...image,
+      },
+    });
+  }
+  async getImage(id: number) {
+    return await this.prisma.image.findUnique({
+      where: {
+        id: id,
+      },
+    });
+  }
 }

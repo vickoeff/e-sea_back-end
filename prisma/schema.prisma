@@ -17,3 +17,15 @@ model Section {
   created_at DateTime? @default(now())
   updated_at DateTime? @updatedAt
 }
+
+model Image {
+  id           Int    @id @default(autoincrement())
+  fieldname    String
+  originalname String
+  encoding     String
+  mimetype     String
+  destination  String
+  filename     String
+  path         String
+  size         Int
+}

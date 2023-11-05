@@ -8,10 +8,13 @@ import {
   Delete,
   HttpException,
   HttpStatus,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
 import { CompanyProfileService } from './company-profile.service';
 import { CreateCompanyProfileDto } from './dto/create-company-profile.dto';
 import { UpdateCompanyProfileDto } from './dto/update-company-profile.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('company-profile')
 export class CompanyProfileController {
@@ -24,6 +27,21 @@ export class CompanyProfileController {
     );
     if (isSucces) return new HttpException('Success', HttpStatus.CREATED);
     throw new HttpException('Error', HttpStatus.INTERNAL_SERVER_ERROR);
+  }
+
+  // upload file
+  @Post('upload')
+  @UseInterceptors(FileInterceptor('image'))
+  async uploadFile(@UploadedFile() image: Express.Multer.File) {
+    const isSucces = await this.companyProfileService.uploadImage(image);
+    if (isSucces) return new HttpException('Success', HttpStatus.CREATED);
+    throw new HttpException('Error', HttpStatus.INTERNAL_SERVER_ERROR);
+  }
+
+  // get image
+  @Get('image/:id')
+  async getImage(@Param('id') id: string) {
+    return await this.companyProfileService.getImage(+id);
   }
 
   @Get()
