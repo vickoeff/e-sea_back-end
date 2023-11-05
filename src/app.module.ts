@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { CompanyProfileModule } from './company-profile/company-profile.module';
-import { GallerysModule } from './gallerys/gallerys.module';
+import { GalleryModule } from './gallery/gallery.module';
 
 @Module({
-  imports: [CompanyProfileModule, GallerysModule],
+  imports: [CompanyProfileModule, GalleryModule],
   controllers: [],
   providers: [],
 })
