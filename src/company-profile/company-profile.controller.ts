@@ -39,10 +39,16 @@ export class CompanyProfileController {
     throw new HttpException('Error', HttpStatus.INTERNAL_SERVER_ERROR);
   }
 
+  // get list image data
+  @Get('images')
+  async getImages() {
+    return await this.companyProfileService.getImage();
+  }
+
   // get image data
-  @Get('image/:id')
-  async getImageData(@Param('id') id: string) {
-    return await this.companyProfileService.getImage(+id);
+  @Get('images/:id')
+  async getImageOne(@Param('id') id: string) {
+    return await this.companyProfileService.getImageOne(+id);
   }
 
   // get file

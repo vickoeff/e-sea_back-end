@@ -19,7 +19,7 @@ model Section {
 }
 
 model Image {
-  id           Int    @id @default(autoincrement())
+  id           Int     @id @default(autoincrement())
   fieldname    String
   originalname String
   encoding     String
@@ -28,4 +28,5 @@ model Image {
   filename     String
   path         String
   size         Int
+  uri          String?
 }
