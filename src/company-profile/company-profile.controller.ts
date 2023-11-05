@@ -66,14 +66,14 @@ export class CompanyProfileController {
   async findOne(@Param('id') id: string) {
     const isExist = await this.companyProfileService.findOne(+id);
     if (!isExist) throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
-    return this.companyProfileService.findOne(+id);
+    return isExist;
   }
 
   @Get('/title/:title')
   async findByTitle(@Param('title') title: string) {
     const isExist = await this.companyProfileService.findByTitle(title);
     if (!isExist) throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
-    return await this.companyProfileService.findByTitle(title);
+    return isExist;
   }
 
   @Patch(':id')
