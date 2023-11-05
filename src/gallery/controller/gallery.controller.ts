@@ -18,13 +18,18 @@ export class GalleryController {
 
   @Post()
   @UseInterceptors(FileInterceptor('image'))
-  create(@UploadedFile() image: Express.Multer.File) {
-    return this.galleryService.create(image);
+  async create(@UploadedFile() image: Express.Multer.File) {
+    return await this.galleryService.create(image);
   }
 
   @Get()
-  findAll() {
-    return this.galleryService.findAll();
+  async findAll() {
+    return await this.galleryService.findAll();
+  }
+
+  @Get('public/assets/:fileName')
+  async fileStream(@Param('id') fileName: string) {
+    return await this.galleryService.fileReader(fileName);
   }
 
   @Get(':id')
