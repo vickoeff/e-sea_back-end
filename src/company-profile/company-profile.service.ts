@@ -1,7 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, StreamableFile } from '@nestjs/common';
 import { CreateCompanyProfileDto } from './dto/create-company-profile.dto';
 import { UpdateCompanyProfileDto } from './dto/update-company-profile.dto';
 import { PrismaService } from 'src/repository/prisma.service';
+import { createReadStream } from 'fs';
+import { join } from 'path';
 
 @Injectable()
 export class CompanyProfileService {
@@ -66,6 +68,19 @@ export class CompanyProfileService {
       where: {
         id: id,
       },
+    });
+  }
+  async getFile(name: string) {
+    const imageFile = await this.prisma.image.findFirst({
+      where: {
+        filename: name,
+      },
+    });
+    const file = createReadStream(
+      join(process.cwd(), `upload/${imageFile.filename}`),
+    );
+    return new StreamableFile(file, {
+      type: imageFile.mimetype,
     });
   }
 }

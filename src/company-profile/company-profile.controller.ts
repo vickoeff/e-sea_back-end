@@ -10,6 +10,7 @@ import {
   HttpStatus,
   UseInterceptors,
   UploadedFile,
+  StreamableFile,
 } from '@nestjs/common';
 import { CompanyProfileService } from './company-profile.service';
 import { CreateCompanyProfileDto } from './dto/create-company-profile.dto';
@@ -38,10 +39,16 @@ export class CompanyProfileController {
     throw new HttpException('Error', HttpStatus.INTERNAL_SERVER_ERROR);
   }
 
-  // get image
+  // get image data
   @Get('image/:id')
-  async getImage(@Param('id') id: string) {
+  async getImageData(@Param('id') id: string) {
     return await this.companyProfileService.getImage(+id);
+  }
+
+  // get file
+  @Get('public/assets/:name')
+  async getFile(@Param('name') name: string): Promise<StreamableFile> {
+    return await this.companyProfileService.getFile(name);
   }
 
   @Get()
