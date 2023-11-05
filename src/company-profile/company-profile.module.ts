@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { CompanyProfileService } from './company-profile.service';
-import { CompanyProfileController } from './company-profile.controller';
+import { CompanyProfileService } from './services/company-profile.service';
+import { CompanyProfileController } from './controller/company-profile.controller';
 import { PrismaService } from 'src/repository/prisma.service';
 import { MulterModule } from '@nestjs/platform-express';
 

@@ -12,9 +12,9 @@ import {
   UploadedFile,
   StreamableFile,
 } from '@nestjs/common';
-import { CompanyProfileService } from './company-profile.service';
-import { CreateCompanyProfileDto } from './dto/create-company-profile.dto';
-import { UpdateCompanyProfileDto } from './dto/update-company-profile.dto';
+import { CompanyProfileService } from '../services/company-profile.service';
+import { CreateCompanyProfileDto } from '../dto/create-company-profile.dto';
+import { UpdateCompanyProfileDto } from '../dto/update-company-profile.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('company-profile')

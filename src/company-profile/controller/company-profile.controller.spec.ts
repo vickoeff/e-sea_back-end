@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CompanyProfileController } from './company-profile.controller';
-import { CompanyProfileService } from './company-profile.service';
+import { CompanyProfileService } from '../services/company-profile.service';
 
 describe('CompanyProfileController', () => {
   let controller: CompanyProfileController;

@@ -1,6 +1,6 @@
 import { Injectable, StreamableFile } from '@nestjs/common';
-import { CreateCompanyProfileDto } from './dto/create-company-profile.dto';
-import { UpdateCompanyProfileDto } from './dto/update-company-profile.dto';
+import { CreateCompanyProfileDto } from '../dto/create-company-profile.dto';
+import { UpdateCompanyProfileDto } from '../dto/update-company-profile.dto';
 import { PrismaService } from 'src/repository/prisma.service';
 import { createReadStream } from 'fs';
 import { join } from 'path';
