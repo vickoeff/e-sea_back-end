@@ -1,26 +1,63 @@
-import { Injectable } from '@nestjs/common';
-import { CreateGalleryDto } from '../dto/create-gallery.dto';
-import { UpdateGalleryDto } from '../dto/update-gallery.dto';
+import { Injectable, StreamableFile } from '@nestjs/common';
+import { createReadStream } from 'fs';
+import { join } from 'path';
+import { PrismaService } from 'src/repository/prisma.service';
 
 @Injectable()
 export class GalleryService {
-  create(createGalleryDto: CreateGalleryDto) {
-    return 'This action adds a new gallery';
+  constructor(private prisma: PrismaService) {}
+
+  async create(image: Express.Multer.File) {
+    return await this.prisma.image.create({
+      data: {
+        ...image,
+        uri: `public/assets/${image.originalname}`,
+      },
+    });
   }
 
-  findAll() {
-    return `This action returns all gallery`;
+  async findAll() {
+    return await this.prisma.image.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} gallery`;
+  async findOne(id: number) {
+    return await this.prisma.image.findUnique({
+      where: {
+        id: id,
+      },
+    });
   }
 
-  update(id: number, updateGalleryDto: UpdateGalleryDto) {
-    return `This action updates a #${id} gallery`;
+  async update(id: number, image: Express.Multer.File) {
+    return await this.prisma.image.update({
+      where: {
+        id,
+      },
+      data: {
+        ...image,
+        uri: `public/assets/${image.originalname}`,
+      },
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} gallery`;
+  async remove(id: number) {
+    return await this.prisma.image.delete({
+      where: {
+        id: id,
+      },
+    });
+  }
+  async fileReader(name: string) {
+    const imageFile = await this.prisma.image.findFirst({
+      where: {
+        originalname: name,
+      },
+    });
+    const file = createReadStream(
+      join(process.cwd(), `upload/${imageFile.filename}`),
+    );
+    return new StreamableFile(file, {
+      type: imageFile.mimetype,
+    });
   }
 }
