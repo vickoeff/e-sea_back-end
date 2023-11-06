@@ -1,5 +1,5 @@
 import { Injectable, StreamableFile } from '@nestjs/common';
-import { createReadStream } from 'fs';
+import { createReadStream, unlinkSync } from 'fs';
 import { join } from 'path';
 import { PrismaService } from 'src/repository/prisma.service';
 
@@ -41,6 +41,12 @@ export class GalleryService {
   }
 
   async remove(id: number) {
+    const imageFile = await this.prisma.image.findUnique({
+      where: {
+        id: id,
+      },
+    });
+    unlinkSync(imageFile.path);
     return await this.prisma.image.delete({
       where: {
         id: id,
