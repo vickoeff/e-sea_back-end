@@ -28,7 +28,7 @@ export class GalleryController {
   }
 
   @Get('public/assets/:fileName')
-  async fileStream(@Param('id') fileName: string) {
+  async fileStream(@Param('fileName') fileName: string) {
     return await this.galleryService.fileReader(fileName);
   }
 
