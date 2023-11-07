@@ -1,5 +1,5 @@
 import { Injectable, StreamableFile } from '@nestjs/common';
-import { createReadStream, unlinkSync } from 'fs';
+import { createReadStream, unlinkSync, existsSync } from 'fs';
 import { join } from 'path';
 import { PrismaService } from 'src/repository/prisma.service';
 
@@ -46,7 +46,9 @@ export class GalleryService {
         id: id,
       },
     });
-    unlinkSync(imageFile.path);
+    if (existsSync(imageFile.path)) {
+      unlinkSync(imageFile.path);
+    }
     return await this.prisma.image.delete({
       where: {
         id: id,
@@ -62,6 +64,7 @@ export class GalleryService {
     const file = createReadStream(
       join(process.cwd(), `upload/${imageFile.filename}`),
     );
+    console.log(file);
     return new StreamableFile(file, {
       type: imageFile.mimetype,
     });
