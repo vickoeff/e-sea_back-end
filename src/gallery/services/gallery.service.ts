@@ -64,7 +64,6 @@ export class GalleryService {
     const file = createReadStream(
       join(process.cwd(), `upload/${imageFile.filename}`),
     );
-    console.log(file);
     return new StreamableFile(file, {
       type: imageFile.mimetype,
     });
