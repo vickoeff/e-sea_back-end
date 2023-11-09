@@ -11,6 +11,7 @@ import {
 } from '@nestjs/common';
 import { GalleryService } from '../services/gallery.service';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { CreateGalleryDTO } from '../dto/create-gallery.dto';
 
 @Controller('gallery')
 export class GalleryController {
@@ -18,8 +19,11 @@ export class GalleryController {
 
   @Post()
   @UseInterceptors(FileInterceptor('image'))
-  async create(@UploadedFile() image: Express.Multer.File) {
-    return await this.galleryService.create(image);
+  async create(
+    @UploadedFile() image: Express.Multer.File,
+    @Body() data: CreateGalleryDTO,
+  ) {
+    return await this.galleryService.create(image, data);
   }
 
   @Get()
@@ -38,8 +42,12 @@ export class GalleryController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @UploadedFile() image: Express.Multer.File) {
-    return this.galleryService.update(+id, image);
+  update(
+    @Param('id') id: string,
+    @UploadedFile() image: Express.Multer.File,
+    @Body() data: CreateGalleryDTO,
+  ) {
+    return this.galleryService.update(+id, image, data);
   }
 
   @Delete(':id')
