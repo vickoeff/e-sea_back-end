@@ -7,6 +7,9 @@ export class CreateGalleryDTO {
   @IsNotEmpty()
   description: string;
 
+  @IsNotEmpty()
+  author: string;
+
   imageUrl: string;
   createdAt: Date;
   updatedAt: Date;

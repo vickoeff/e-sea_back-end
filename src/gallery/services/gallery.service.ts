@@ -18,7 +18,7 @@ export class GalleryService {
   }
 
   async findAll() {
-    return await this.prisma.image.findMany();
+    return await this.prisma.gallery.findMany();
   }
 
   async findOne(id: number) {
