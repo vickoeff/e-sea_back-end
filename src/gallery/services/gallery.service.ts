@@ -9,10 +9,16 @@ export class GalleryService {
   constructor(private prisma: PrismaService) {}
 
   async create(image: Express.Multer.File, data: CreateGalleryDTO) {
+    await this.prisma.image.create({
+      data: {
+        ...image,
+      },
+    });
     return await this.prisma.gallery.create({
       data: {
         ...data,
         imageUrl: `gallery/public/assets/${image.originalname}`,
+        imagePath: image.path,
       },
     });
   }
@@ -30,6 +36,24 @@ export class GalleryService {
   }
 
   async update(id: number, image: Express.Multer.File, data: CreateGalleryDTO) {
+    const findImageDb = await this.prisma.gallery.findFirst({
+      where: {
+        id: id,
+      },
+    });
+    const findImageRepo = await this.prisma.image.findFirst({
+      where: {
+        path: findImageDb.imagePath,
+      },
+    });
+    await this.prisma.image.update({
+      where: {
+        id: findImageRepo.id,
+      },
+      data: {
+        ...image,
+      },
+    });
     return await this.prisma.gallery.update({
       where: {
         id,
@@ -37,18 +61,19 @@ export class GalleryService {
       data: {
         ...data,
         imageUrl: `gallery/public/assets/${image.originalname}`,
+        imagePath: image.path,
       },
     });
   }
 
   async remove(id: number) {
-    const imageFile = await this.prisma.image.findUnique({
+    const gallery = await this.prisma.gallery.findUnique({
       where: {
         id: id,
       },
     });
-    if (existsSync(imageFile.path)) {
-      unlinkSync(imageFile.path);
+    if (existsSync(gallery.imagePath)) {
+      unlinkSync(gallery.imagePath);
     }
     return await this.prisma.image.delete({
       where: {

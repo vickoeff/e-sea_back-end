@@ -13,7 +13,7 @@ import { GalleryService } from '../services/gallery.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { CreateGalleryDTO } from '../dto/create-gallery.dto';
 
-@Controller('gallery')
+@Controller('company-profile/gallery')
 export class GalleryController {
   constructor(private readonly galleryService: GalleryService) {}
 
