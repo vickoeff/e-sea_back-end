@@ -39,3 +39,12 @@ model Home {
   created_at  DateTime? @default(now())
   updated_at  DateTime? @updatedAt
 }
+
+model Gallery {
+  id          Int       @id @default(autoincrement())
+  title       String
+  description String
+  imageUrl    String
+  created_at  DateTime? @default(now())
+  updated_at  DateTime? @updatedAt
+}
