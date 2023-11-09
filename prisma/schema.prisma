@@ -30,3 +30,12 @@ model Image {
   size         Int
   uri          String?
 }
+
+model Home {
+  id          Int       @id @default(autoincrement())
+  title       String
+  description String
+  imageUrl    String
+  created_at  DateTime? @default(now())
+  updated_at  DateTime? @updatedAt
+}

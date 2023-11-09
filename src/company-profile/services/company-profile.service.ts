@@ -4,6 +4,8 @@ import { UpdateCompanyProfileDto } from '../dto/update-company-profile.dto';
 import { PrismaService } from 'src/repository/prisma.service';
 import { createReadStream } from 'fs';
 import { join } from 'path';
+import { CreateHomeDTO } from '../dto/create-home.dto';
+import { UpdateHomeDTO } from '../dto/update-home.dto';
 
 @Injectable()
 export class CompanyProfileService {
@@ -88,6 +90,49 @@ export class CompanyProfileService {
     );
     return new StreamableFile(file, {
       type: imageFile.mimetype,
+    });
+  }
+
+  // get home repository
+  async getHomeList() {
+    return await this.prisma.home.findMany();
+  }
+
+  // get one home
+  async getOneHome(id: number) {
+    return await this.prisma.home.findUnique({
+      where: {
+        id: id,
+      },
+    });
+  }
+
+  async createOneHome(createHomeDTO: CreateHomeDTO) {
+    return await this.prisma.home.create({
+      data: {
+        title: createHomeDTO.title,
+        description: createHomeDTO.description,
+        imageUrl: createHomeDTO.imageUrl,
+      },
+    });
+  }
+
+  async editOneHome(id: number, updateOneHome: UpdateHomeDTO) {
+    return await this.prisma.home.update({
+      where: {
+        id: id,
+      },
+      data: {
+        ...updateOneHome,
+      },
+    });
+  }
+
+  async deleteOneHome(id: number) {
+    return await this.prisma.home.delete({
+      where: {
+        id: id,
+      },
     });
   }
 }
