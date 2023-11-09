@@ -64,12 +64,12 @@ export class CompanyProfileController {
     return await this.companyProfileService.findAll();
   }
 
-  @Get(':id')
-  async findOne(@Param('id') id: string) {
-    const isExist = await this.companyProfileService.findOne(+id);
-    if (!isExist) throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
-    return isExist;
-  }
+  // @Get(':id')
+  // async findOne(@Param('id') id: string) {
+  //   const isExist = await this.companyProfileService.findOne(+id);
+  //   if (!isExist) throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
+  //   return isExist;
+  // }
 
   @Get('/title/:title')
   async findByTitle(@Param('title') title: string) {
@@ -101,22 +101,26 @@ export class CompanyProfileController {
   }
 
   // home
-  @Get('/home')
+  @Get('home')
   async getHOme() {
     return await this.companyProfileService.getHomeList();
   }
 
-  @Post('/home')
-  async createOneHome(@Body() createHome: CreateHomeDTO) {
-    return await this.companyProfileService.createOneHome(createHome);
+  @Post('home')
+  @UseInterceptors(FileInterceptor('image'))
+  async createOneHome(
+    @UploadedFile() image: Express.Multer.File,
+    @Body() createHome: CreateHomeDTO,
+  ) {
+    return await this.companyProfileService.createOneHome(image, createHome);
   }
 
-  @Get('/home/:id')
+  @Get('home/:id')
   async getOneHome(@Param('id') id: string) {
     return await this.companyProfileService.getOneHome(+id);
   }
 
-  @Patch('/home/:id')
+  @Patch('home/:id')
   async editOneHome(
     @Param('id') id: string,
     @Body() updateHome: UpdateHomeDTO,
@@ -132,4 +136,10 @@ export class CompanyProfileController {
     if (isSucces) return new HttpException('Deleted', HttpStatus.GONE);
     throw new HttpException('Error', HttpStatus.INTERNAL_SERVER_ERROR);
   }
+
+  // @Post('/check')
+  // @UseInterceptors(FileInterceptor('image'))
+  // async check(@UploadedFile() image: Express.Multer.File, @Body() data: any) {
+  //   return { ...image, data };
+  // }
 }

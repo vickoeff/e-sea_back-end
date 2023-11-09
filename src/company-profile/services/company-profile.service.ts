@@ -107,12 +107,15 @@ export class CompanyProfileService {
     });
   }
 
-  async createOneHome(createHomeDTO: CreateHomeDTO) {
+  async createOneHome(
+    image: Express.Multer.File,
+    createHomeDTO: CreateHomeDTO,
+  ) {
     return await this.prisma.home.create({
       data: {
         title: createHomeDTO.title,
         description: createHomeDTO.description,
-        imageUrl: createHomeDTO.imageUrl,
+        imageUrl: `gallery/public/assets/${image.originalname}`,
       },
     });
   }
