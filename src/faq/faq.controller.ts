@@ -6,16 +6,19 @@ import {
   Patch,
   Param,
   Delete,
+  UseInterceptors,
 } from '@nestjs/common';
 import { FaqService } from './faq.service';
 import { CreateFaqDto } from './dto/create-faq.dto';
 import { UpdateFaqDto } from './dto/update-faq.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('company-profile/faq')
 export class FaqController {
   constructor(private readonly faqService: FaqService) {}
 
   @Post()
+  @UseInterceptors(FileInterceptor('file with multi part'))
   create(@Body() createFaqDto: CreateFaqDto) {
     return this.faqService.create(createFaqDto);
   }
@@ -31,6 +34,7 @@ export class FaqController {
   }
 
   @Patch(':id')
+  @UseInterceptors(FileInterceptor('file with multi part'))
   update(@Param('id') id: string, @Body() updateFaqDto: UpdateFaqDto) {
     return this.faqService.update(+id, updateFaqDto);
   }

@@ -42,6 +42,7 @@ export class GalleryController {
   }
 
   @Patch(':id')
+  @UseInterceptors(FileInterceptor('image'))
   update(
     @Param('id') id: string,
     @UploadedFile() image: Express.Multer.File,

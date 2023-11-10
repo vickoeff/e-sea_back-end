@@ -121,11 +121,15 @@ export class CompanyProfileController {
   }
 
   @Patch('home/:id')
+  @UseInterceptors(FileInterceptor('image'))
   async editOneHome(
     @Param('id') id: string,
+    @UploadedFile() image: Express.Multer.File,
     @Body() updateHome: UpdateHomeDTO,
   ) {
-    return await this.companyProfileService.editOneHome(+id, updateHome);
+    const isExist = await this.companyProfileService.getOneHome(+id);
+    if (!isExist) throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
+    return await this.companyProfileService.editOneHome(+id, image, updateHome);
   }
 
   @Delete('/home/:id')

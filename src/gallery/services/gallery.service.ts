@@ -3,6 +3,7 @@ import { createReadStream, unlinkSync, existsSync } from 'fs';
 import { join } from 'path';
 import { PrismaService } from 'src/repository/prisma.service';
 import { CreateGalleryDTO } from '../dto/create-gallery.dto';
+import { UpdateGalleryDto } from '../dto/update-gallery.dto';
 
 @Injectable()
 export class GalleryService {
@@ -35,24 +36,9 @@ export class GalleryService {
     });
   }
 
-  async update(id: number, image: Express.Multer.File, data: CreateGalleryDTO) {
-    const findImageDb = await this.prisma.gallery.findFirst({
-      where: {
-        id: id,
-      },
-    });
-    const findImageRepo = await this.prisma.image.findFirst({
-      where: {
-        path: findImageDb.imagePath,
-      },
-    });
-    await this.prisma.image.update({
-      where: {
-        id: findImageRepo.id,
-      },
-      data: {
-        ...image,
-      },
+  async update(id: number, image: Express.Multer.File, data: UpdateGalleryDto) {
+    await this.prisma.image.create({
+      data: image,
     });
     return await this.prisma.gallery.update({
       where: {

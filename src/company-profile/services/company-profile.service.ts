@@ -111,6 +111,9 @@ export class CompanyProfileService {
     image: Express.Multer.File,
     createHomeDTO: CreateHomeDTO,
   ) {
+    await this.prisma.image.create({
+      data: image,
+    });
     return await this.prisma.home.create({
       data: {
         title: createHomeDTO.title,
@@ -120,13 +123,21 @@ export class CompanyProfileService {
     });
   }
 
-  async editOneHome(id: number, updateOneHome: UpdateHomeDTO) {
+  async editOneHome(
+    id: number,
+    image: Express.Multer.File,
+    updateOneHome: UpdateHomeDTO,
+  ) {
+    await this.prisma.image.create({
+      data: image,
+    });
     return await this.prisma.home.update({
       where: {
         id: id,
       },
       data: {
         ...updateOneHome,
+        imageUrl: `gallery/public/assets/${image.originalname}`,
       },
     });
   }
