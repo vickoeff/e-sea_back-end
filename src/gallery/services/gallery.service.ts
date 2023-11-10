@@ -75,9 +75,15 @@ export class GalleryService {
     if (existsSync(gallery.imagePath)) {
       unlinkSync(gallery.imagePath);
     }
-    return await this.prisma.image.delete({
+    await this.prisma.image.delete({
       where: {
         id: id,
+      },
+    });
+
+    return await this.prisma.gallery.delete({
+      where: {
+        id: gallery.id,
       },
     });
   }
