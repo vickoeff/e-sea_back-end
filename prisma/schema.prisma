@@ -70,3 +70,19 @@ model Approval {
   created_at DateTime? @default(now())
   updated_at DateTime? @updatedAt
 }
+
+model Faq {
+  id         Int       @id @default(autoincrement())
+  ask        String
+  answer     String
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+}
+
+model About {
+  id         Int       @id @default(autoincrement())
+  title      String
+  body       String
+  created_at DateTime? @default(now())
+  updated_at DateTime? @updatedAt
+}

@@ -3,9 +3,18 @@ import { CompanyProfileModule } from './company-profile/company-profile.module';
 import { GalleryModule } from './gallery/gallery.module';
 import { AnnouncementModule } from './announcement/announcement.module';
 import { ApprovalModule } from './approval/approval.module';
+import { FaqModule } from './faq/faq.module';
+import { AboutModule } from './about/about.module';
 
 @Module({
-  imports: [CompanyProfileModule, GalleryModule, AnnouncementModule, ApprovalModule],
+  imports: [
+    CompanyProfileModule,
+    GalleryModule,
+    AnnouncementModule,
+    ApprovalModule,
+    FaqModule,
+    AboutModule,
+  ],
   controllers: [],
   providers: [],
 })
