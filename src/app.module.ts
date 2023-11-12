@@ -5,6 +5,7 @@ import { AnnouncementModule } from './announcement/announcement.module';
 import { ApprovalModule } from './approval/approval.module';
 import { FaqModule } from './faq/faq.module';
 import { AboutModule } from './about/about.module';
+import { ReportModule } from './report/report.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { AboutModule } from './about/about.module';
     ApprovalModule,
     FaqModule,
     AboutModule,
+    ReportModule,
   ],
   controllers: [],
   providers: [],
