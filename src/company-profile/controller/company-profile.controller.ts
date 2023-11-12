@@ -61,15 +61,8 @@ export class CompanyProfileController {
 
   @Get()
   async findAll() {
-    return await this.companyProfileService.findAll();
+    return 'welcome to e-sea-backend';
   }
-
-  // @Get(':id')
-  // async findOne(@Param('id') id: string) {
-  //   const isExist = await this.companyProfileService.findOne(+id);
-  //   if (!isExist) throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
-  //   return isExist;
-  // }
 
   @Get('/title/:title')
   async findByTitle(@Param('title') title: string) {
@@ -109,10 +102,11 @@ export class CompanyProfileController {
   @Post('home')
   @UseInterceptors(FileInterceptor('image'))
   async createOneHome(
-    @UploadedFile() image: Express.Multer.File,
-    @Body() createHome: CreateHomeDTO,
+    @UploadedFile()
+    @Body()
+    createHome: CreateHomeDTO,
   ) {
-    return await this.companyProfileService.createOneHome(image, createHome);
+    return await this.companyProfileService.createOneHome(createHome);
   }
 
   @Get('home/:id')
@@ -124,12 +118,13 @@ export class CompanyProfileController {
   @UseInterceptors(FileInterceptor('image'))
   async editOneHome(
     @Param('id') id: string,
-    @UploadedFile() image: Express.Multer.File,
-    @Body() updateHome: UpdateHomeDTO,
+    @UploadedFile()
+    @Body()
+    updateHome: UpdateHomeDTO,
   ) {
     const isExist = await this.companyProfileService.getOneHome(+id);
     if (!isExist) throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
-    return await this.companyProfileService.editOneHome(+id, image, updateHome);
+    return await this.companyProfileService.editOneHome(+id, updateHome);
   }
 
   @Delete('/home/:id')
@@ -140,10 +135,4 @@ export class CompanyProfileController {
     if (isSucces) return new HttpException('Deleted', HttpStatus.GONE);
     throw new HttpException('Error', HttpStatus.INTERNAL_SERVER_ERROR);
   }
-
-  // @Post('/check')
-  // @UseInterceptors(FileInterceptor('image'))
-  // async check(@UploadedFile() image: Express.Multer.File, @Body() data: any) {
-  //   return { ...image, data };
-  // }
 }

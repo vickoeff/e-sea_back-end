@@ -35,7 +35,6 @@ model Home {
   id          Int       @id @default(autoincrement())
   title       String
   description String
-  imageUrl    String
   created_at  DateTime? @default(now())
   updated_at  DateTime? @updatedAt
 }
@@ -85,4 +84,13 @@ model About {
   body       String
   created_at DateTime? @default(now())
   updated_at DateTime? @updatedAt
+}
+
+model Report {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  url         String
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
 }

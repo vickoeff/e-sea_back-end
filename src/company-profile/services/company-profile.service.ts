@@ -107,37 +107,22 @@ export class CompanyProfileService {
     });
   }
 
-  async createOneHome(
-    image: Express.Multer.File,
-    createHomeDTO: CreateHomeDTO,
-  ) {
-    await this.prisma.image.create({
-      data: image,
-    });
+  async createOneHome(createHomeDTO: CreateHomeDTO) {
     return await this.prisma.home.create({
       data: {
         title: createHomeDTO.title,
         description: createHomeDTO.description,
-        imageUrl: `gallery/public/assets/${image.originalname}`,
       },
     });
   }
 
-  async editOneHome(
-    id: number,
-    image: Express.Multer.File,
-    updateOneHome: UpdateHomeDTO,
-  ) {
-    await this.prisma.image.create({
-      data: image,
-    });
+  async editOneHome(id: number, updateOneHome: UpdateHomeDTO) {
     return await this.prisma.home.update({
       where: {
         id: id,
       },
       data: {
         ...updateOneHome,
-        imageUrl: `gallery/public/assets/${image.originalname}`,
       },
     });
   }
