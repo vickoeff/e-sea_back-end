@@ -73,24 +73,4 @@ export class AnnouncementService {
       },
     });
   }
-  async uploadImage(image: Express.Multer.File) {
-    return await this.prisma.image.create({
-      data: {
-        ...image,
-        uri: `public/assets/${image.originalname}`,
-      },
-    });
-  }
-
-  async getImage() {
-    return await this.prisma.image.findMany();
-  }
-
-  async getImageOne(id: number) {
-    return await this.prisma.image.findUnique({
-      where: {
-        id: id,
-      },
-    });
-  }
 }
