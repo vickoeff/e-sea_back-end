@@ -37,6 +37,9 @@ export class AnnouncementService {
     image: Express.Multer.File,
     data: UpdateAnnouncementDto,
   ) {
+    await this.prisma.image.create({
+      data: image,
+    });
     return await this.prisma.announcement.update({
       where: {
         id,
