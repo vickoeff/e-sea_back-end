@@ -14,7 +14,7 @@ import { CreateAnnouncementDto } from '../dto/create-announcement.dto';
 import { UpdateAnnouncementDto } from '../dto/update-announcement.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 
-@Controller('company-profile/pengumuman')
+@Controller('company-profile/announcement')
 export class AnnouncementController {
   constructor(private readonly announcementService: AnnouncementService) {}
 
