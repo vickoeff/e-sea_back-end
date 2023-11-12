@@ -6,17 +6,21 @@ import {
   Patch,
   Param,
   Delete,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
 import { ReportService } from '../services/report.service';
 import { CreateReportDto } from '../dto/create-report.dto';
 import { UpdateReportDto } from '../dto/update-report.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('company-profile/report')
 export class ReportController {
   constructor(private readonly reportService: ReportService) {}
 
   @Post()
-  async create(@Body() createReportDto: CreateReportDto) {
+  @UseInterceptors(FileInterceptor('file'))
+  async create(@UploadedFile() @Body() createReportDto: CreateReportDto) {
     return await this.reportService.create(createReportDto);
   }
 
@@ -31,9 +35,12 @@ export class ReportController {
   }
 
   @Patch(':id')
+  @UseInterceptors(FileInterceptor('file'))
   async update(
     @Param('id') id: string,
-    @Body() updateReportDto: UpdateReportDto,
+    @UploadedFile()
+    @Body()
+    updateReportDto: UpdateReportDto,
   ) {
     return await this.reportService.update(+id, updateReportDto);
   }

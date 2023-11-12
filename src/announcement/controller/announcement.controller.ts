@@ -8,11 +8,13 @@ import {
   Delete,
   UseInterceptors,
   UploadedFile,
+  Query,
 } from '@nestjs/common';
 import { AnnouncementService } from '../services/announcement.service';
 import { CreateAnnouncementDto } from '../dto/create-announcement.dto';
 import { UpdateAnnouncementDto } from '../dto/update-announcement.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { PaginateOptions } from '../tools/paginator';
 
 @Controller('company-profile/announcement')
 export class AnnouncementController {
@@ -28,8 +30,11 @@ export class AnnouncementController {
   }
 
   @Get()
-  async findAll() {
-    return await this.announcementService.findAll();
+  async findAll(@Query() query: PaginateOptions) {
+    return await this.announcementService.findAll({
+      page: Number(query.page),
+      perPage: Number(query.perPage),
+    });
   }
 
   @Get(':id')
@@ -38,6 +43,7 @@ export class AnnouncementController {
   }
 
   @Patch(':id')
+  @UseInterceptors(FileInterceptor('image'))
   update(
     @Param('id') id: string,
     @UploadedFile() image: Express.Multer.File,
