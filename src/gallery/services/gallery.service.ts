@@ -36,7 +36,24 @@ export class GalleryService {
     });
   }
 
-  async update(id: number, image: Express.Multer.File, data: UpdateGalleryDto) {
+  async update(id: number, data: UpdateGalleryDto) {
+    return await this.prisma.gallery.update({
+      where: {
+        id,
+      },
+      data: {
+        title: data.title,
+        description: data.description,
+        author: data.author,
+      },
+    });
+  }
+
+  async updateWithImage(
+    id: number,
+    image: Express.Multer.File,
+    data: UpdateGalleryDto,
+  ) {
     await this.prisma.image.create({
       data: image,
     });

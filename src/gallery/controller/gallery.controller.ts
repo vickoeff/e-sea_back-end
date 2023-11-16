@@ -43,12 +43,14 @@ export class GalleryController {
 
   @Patch(':id')
   @UseInterceptors(FileInterceptor('image'))
-  update(
+  async update(
     @Param('id') id: string,
     @UploadedFile() image: Express.Multer.File,
     @Body() data: CreateGalleryDTO,
   ) {
-    return this.galleryService.update(+id, image, data);
+    if (image) {
+      return await this.galleryService.updateWithImage(+id, image, data);
+    } else return await this.galleryService.update(+id, data);
   }
 
   @Delete(':id')

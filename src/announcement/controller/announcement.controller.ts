@@ -44,12 +44,19 @@ export class AnnouncementController {
 
   @Patch(':id')
   @UseInterceptors(FileInterceptor('image'))
-  update(
+  async update(
     @Param('id') id: string,
     @UploadedFile() image: Express.Multer.File,
     @Body() updateAnnouncementDto: UpdateAnnouncementDto,
   ) {
-    return this.announcementService.update(+id, image, updateAnnouncementDto);
+    if (image) {
+      return await this.announcementService.updateWithImage(
+        +id,
+        image,
+        updateAnnouncementDto,
+      );
+    } else
+      return await this.announcementService.update(+id, updateAnnouncementDto);
   }
 
   @Delete(':id')

@@ -46,7 +46,21 @@ export class AnnouncementService {
     });
   }
 
-  async update(
+  async update(id: number, updateAnnouncementDto: UpdateAnnouncementDto) {
+    return await this.prisma.announcement.update({
+      where: {
+        id,
+      },
+      data: {
+        title: updateAnnouncementDto.title,
+        author: updateAnnouncementDto.author,
+        description: updateAnnouncementDto.description,
+        publish_at: updateAnnouncementDto.publishAt,
+      },
+    });
+  }
+
+  async updateWithImage(
     id: number,
     image: Express.Multer.File,
     updateAnnouncementDto: UpdateAnnouncementDto,
