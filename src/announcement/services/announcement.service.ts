@@ -55,7 +55,8 @@ export class AnnouncementService {
         title: updateAnnouncementDto.title,
         author: updateAnnouncementDto.author,
         description: updateAnnouncementDto.description,
-        publish_at: updateAnnouncementDto.publishAt,
+        event_start_at: updateAnnouncementDto.event_start_at,
+        event_end_at: updateAnnouncementDto.event_end_at,
       },
     });
   }

@@ -12,5 +12,6 @@ export class CreateAnnouncementDto {
   imageUrl: string;
   createdAt: Date;
   updatedAt: Date;
-  publishAt: Date;
+  event_end_at: Date;
+  event_start_at: Date;
 }

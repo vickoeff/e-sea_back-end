@@ -51,15 +51,16 @@ model Gallery {
 }
 
 model Announcement {
-  id          Int       @id @default(autoincrement())
-  title       String
-  description String
-  author      String
-  imageUrl    String
-  imagePath   String
-  created_at  DateTime? @default(now())
-  updated_at  DateTime? @updatedAt
-  publish_at  DateTime?
+  id             Int       @id @default(autoincrement())
+  title          String
+  description    String
+  author         String
+  imageUrl       String
+  imagePath      String
+  created_at     DateTime? @default(now())
+  updated_at     DateTime? @updatedAt
+  event_start_at DateTime?
+  event_end_at   DateTime?
 }
 
 model Approval {
@@ -93,4 +94,24 @@ model Report {
   url         String
   created_at  DateTime @default(now())
   updated_at  DateTime @updatedAt
+}
+
+model SocialMedia {
+  id             Int       @id @default(autoincrement())
+  label          String
+  url            String?
+  contact_number String?
+  icon           String?
+  created_at     DateTime? @default(now())
+  updated_at     DateTime? @updatedAt
+}
+
+model Profile {
+  id         String    @id @default("e-sea")
+  title_web  String
+  logo_1     String
+  logo_2     String
+  fav_icon   String
+  created_at DateTime? @default(now())
+  updated_at DateTime? @updatedAt
 }

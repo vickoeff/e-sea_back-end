@@ -6,6 +6,8 @@ import { ApprovalModule } from './approval/approval.module';
 import { FaqModule } from './faq/faq.module';
 import { AboutModule } from './about/about.module';
 import { ReportModule } from './report/report.module';
+import { ProfileModule } from './profile/profile.module';
+import { SocialMediaModule } from './social-media/social-media.module';
 
 @Module({
   imports: [
@@ -16,6 +18,8 @@ import { ReportModule } from './report/report.module';
     FaqModule,
     AboutModule,
     ReportModule,
+    ProfileModule,
+    SocialMediaModule,
   ],
   controllers: [],
   providers: [],
