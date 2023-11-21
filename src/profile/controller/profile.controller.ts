@@ -9,7 +9,6 @@ import {
   Post,
   UseInterceptors,
   UploadedFile,
-  UploadedFiles,
   Delete,
 } from '@nestjs/common';
 import { ProfileService } from '../services/profile.service';
