@@ -4,7 +4,7 @@
 
 [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
 [circleci-url]: https://circleci.com/gh/nestjs/nest
-  
+
   <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
     <p align="center">
 <a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
@@ -26,18 +26,19 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-## Requirement 
+## Requirement
+
 - [x] postgres
 - [x] databasename check on .env.example
-- [x] create file .env 
+- [x] create file .env
 
 ## Installation
 
 ```bash
 $ npm install
 $ npm install prisma --save-dev
-$ npx prisma generate
 $ npx prisma migarate dev
+$ npx prisma generate
 ```
 
 ## Running the app
@@ -50,6 +51,12 @@ $ npm run start
 $ npm run start:dev
 
 # production mode
+$ npm run build
+
+$ prisma migrate deploy
+
+$ prisma generate
+
 $ npm run start:prod
 ```
 
@@ -78,4 +85,4 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 
 ## License
 
-  Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
