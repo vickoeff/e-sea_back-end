@@ -111,7 +111,7 @@ model Profile {
   title_web  String
   logo_1     String
   logo_2     String
-  fav_icon   String
+  favicon    String?
   created_at DateTime? @default(now())
   updated_at DateTime? @updatedAt
 }

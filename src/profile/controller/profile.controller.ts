@@ -77,10 +77,6 @@ export class ProfileController {
     @Body() updateProfileDto: UpdateProfileDto,
   ) {
     try {
-      const isExist = await this.profileService.findOne(id);
-      if (!isExist) {
-        throw new HttpException('Please Create First', HttpStatus.NO_CONTENT);
-      }
       await this.profileService.update(updateProfileDto);
       return new HttpException('Success Updated', HttpStatus.ACCEPTED);
     } catch (e) {

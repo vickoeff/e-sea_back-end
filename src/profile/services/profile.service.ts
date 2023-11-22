@@ -21,7 +21,7 @@ export class ProfileService {
         title_web: createProfileDto.title_web,
         logo_1: ``,
         logo_2: ``,
-        fav_icon: ``,
+        favicon: ``,
       },
     });
   }
@@ -30,7 +30,7 @@ export class ProfileService {
     const image = await this.prisma.image.create({
       data: file,
     });
-    return await this.prisma.profile.update({
+    const data = await this.prisma.profile.update({
       where: {
         id: 'e-sea',
       },
@@ -38,6 +38,7 @@ export class ProfileService {
         logo_1: `gallery/public/assets/${image.originalname}`,
       },
     });
+    return data;
   }
 
   async update_logo2(file: Express.Multer.File) {
@@ -63,13 +64,13 @@ export class ProfileService {
         id: 'e-sea',
       },
       data: {
-        fav_icon: `gallery/public/assets/${image.originalname}`,
+        favicon: `gallery/public/assets/${image.originalname}`,
       },
     });
   }
 
   async update(updateProfileDto: UpdateProfileDto) {
-    return await this.prisma.profile.update({
+    const data = await this.prisma.profile.update({
       where: {
         id: 'e-sea',
       },
@@ -77,6 +78,7 @@ export class ProfileService {
         title_web: updateProfileDto.title_web,
       },
     });
+    return data;
   }
 
   async delete(id: string) {
