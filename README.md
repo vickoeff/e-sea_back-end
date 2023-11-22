@@ -37,26 +37,27 @@
 ```bash
 $ npm install
 $ npm install prisma --save-dev
-$ npx prisma migarate dev
-$ npx prisma generate
 ```
 
 ## Running the app
 
 ```bash
 # development
+$ npx prisma migarate dev
+$ npx prisma generate
 $ npm run start
+# noted..!! if u already migrate just start serve
 
 # watch mode
+$ npx prisma migarate dev
+$ npx prisma generate
 $ npm run start:dev
+# noted..!! if u already migrate just start serve
 
 # production mode
 $ npm run build
-
 $ prisma migrate deploy
-
 $ prisma generate
-
 $ npm run start:prod
 ```
 
