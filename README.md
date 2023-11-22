@@ -59,6 +59,13 @@ $ npm run build
 $ prisma migrate deploy
 $ prisma generate
 $ npm run start:prod
+
+# pm2 production mode
+$ npm install pm2@latest -g
+$ npm run build
+$ prisma migrate deploy
+$ prisma generate
+$ pm2 start dist/main.js
 ```
 
 ## Test
